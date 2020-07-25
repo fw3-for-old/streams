@@ -1,0 +1,33 @@
+{
+	"name" : "fw3_for_old/streams",
+	"description" : "Flywheel3 framework: Stream library for old php versions",
+	"type" : "library",
+	"homepage" : "https://ickx.jp",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "akira wakaba",
+			"homepage" : "https://ickx.jp",
+			"role" : "lead developer"
+		}
+	],
+	"config": {
+		"autoloader-suffix": "IckxFw3ForOldStreams"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"fw3_for_old\\streams\\" : "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4" : {
+			"fw3_for_old\\tests\\streams\\" : "tests"
+		}
+	},
+	"keywords" : [
+		"fw3 Flywheel3 stream filter library"
+	],
+	"require" : {
+		"php": ">=5.3.3",
+		"ext-mbstring" : "*"
+	}
+}
