@@ -78,6 +78,26 @@ abstract class AbstractTest implements TestInterface
     }
 
     /**
+     * 値がbool trueかアサーションします。
+     *
+     * @param   array   $actual     実際の値
+     */
+    protected function assertTrue($actual)
+    {
+        $this->log(true === $actual, true, $actual);
+    }
+
+    /**
+     * 値がbool falseかアサーションします。
+     *
+     * @param   array   $actual     実際の値
+     */
+    protected function assertFalse($actual)
+    {
+        $this->log(false === $actual, false, $actual);
+    }
+
+    /**
      * 与えられたストリームで書き込み時のストリームフィルタをアサーションします。
      *
      * @param   string          $expected       予想される値
