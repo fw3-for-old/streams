@@ -26,5 +26,5 @@ require_once sprintf('%s/filters/utilitys/specs/StreamFilterConvertLinefeedSpec.
 require_once sprintf('%s/filters/utilitys/specs/StreamFilterConvertEncodingSpec.php', __DIR__);
 require_once sprintf('%s/filters/utilitys/entitys/StreamFilterSpecEntity.php', __DIR__);
 require_once sprintf('%s/filters/utilitys/StreamFilterSpec.php', __DIR__);
-require_once sprintf('%s/filters/ConvertLienFeedFilter.php', __DIR__);
+require_once sprintf('%s/filters/ConvertLienfeedfilter.php', __DIR__);
 require_once sprintf('%s/filters/ConvertEncodingFilter.php', __DIR__);
