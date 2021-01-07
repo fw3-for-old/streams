@@ -19,7 +19,7 @@
 namespace fw3_for_old\tests\cases\filters;
 
 use fw3_for_old\streams\filters\ConvertEncodingFilter;
-use fw3_for_old\streams\filters\ConvertLienfeedFilter;
+use fw3_for_old\streams\filters\ConvertLinefeedFilter;
 use fw3_for_old\streams\filters\utilitys\StreamFilterSpec;
 use fw3_for_old\streams\filters\utilitys\specs\StreamFilterConvertEncodingSpec;
 use fw3_for_old\streams\filters\utilitys\specs\StreamFilterConvertLinefeedSpec;
@@ -67,7 +67,7 @@ class CsvIoTest extends AbstractTest
         );
 
         $expected   = \mb_convert_encoding(\implode(
-            ConvertLienfeedFilter::CRLF,
+            ConvertLinefeedFilter::CRLF,
             array(
                 \implode(',', array(static::TEST_DATA_SIMPLE_TEXT1, '"'. static::TEST_DATA_SIMPLE_TEXT2 .'"', static::TEST_DATA_SIMPLE_TEXT3)),
                 \implode(',', array('"'. static::TEST_DATA_SIMPLE_TEXT2 .'"', static::TEST_DATA_SIMPLE_TEXT3, static::TEST_DATA_SIMPLE_TEXT1)),
@@ -103,7 +103,7 @@ class CsvIoTest extends AbstractTest
         );
 
         $csv_text   = \mb_convert_encoding(\implode(
-            ConvertLienfeedFilter::CRLF,
+            ConvertLinefeedFilter::CRLF,
             array(
                 \implode(',', array(static::TEST_DATA_SIMPLE_TEXT1, '"'. static::TEST_DATA_SIMPLE_TEXT2 .'"', static::TEST_DATA_SIMPLE_TEXT3)),
                 \implode(',', array('"'. static::TEST_DATA_SIMPLE_TEXT2 .'"', static::TEST_DATA_SIMPLE_TEXT3, static::TEST_DATA_SIMPLE_TEXT1)),
