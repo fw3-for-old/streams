@@ -130,7 +130,7 @@ abstract class StreamFilterSpec
     public static function registerConvertLinefeedFilter($filter_name = StreamFilterConvertLinefeedSpec::DEFAULT_FILTER_NAME)
     {
         StreamFilterConvertLinefeedSpec::filterName($filter_name);
-        \stream_filter_register(StreamFilterConvertLinefeedSpec::registerFilterName(), '\fw3_for_old\streams\filters\ConvertLienfeedFilter');
+        \stream_filter_register(StreamFilterConvertLinefeedSpec::registerFilterName(), '\fw3_for_old\streams\filters\ConvertLinefeedFilter');
     }
 
     /**
