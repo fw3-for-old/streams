@@ -18,7 +18,7 @@
 
 namespace fw3_for_old\streams\filters\utilitys\specs;
 
-use fw3_for_old\streams\filters\ConvertLienfeedFilter;
+use fw3_for_old\streams\filters\ConvertLinefeedFilter;
 use fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertLinefeedSpecEntity;
 
 /**
@@ -86,19 +86,19 @@ abstract class StreamFilterConvertLinefeedSpec
      * @var array   文字列表現の改行から改行コード表現への変換マップ
      */
     public static $LINEFEED_MAP  = array(
-        ConvertLienfeedFilter::STR_CR   => ConvertLienfeedFilter::CR,
-        ConvertLienfeedFilter::STR_LF   => ConvertLienfeedFilter::LF,
-        ConvertLienfeedFilter::STR_CRLF => ConvertLienfeedFilter::CRLF,
+        ConvertLinefeedFilter::STR_CR   => ConvertLinefeedFilter::CR,
+        ConvertLinefeedFilter::STR_LF   => ConvertLinefeedFilter::LF,
+        ConvertLinefeedFilter::STR_CRLF => ConvertLinefeedFilter::CRLF,
     );
 
     /**
      * @var array   許可する変換元改行コード表現の文字列リスト
      */
     public static $ALLOW_FROM_LINEFEED_STR_LIST    = array(
-        ConvertLienfeedFilter::STR_CR   => ConvertLienfeedFilter::STR_CR,
-        ConvertLienfeedFilter::STR_LF   => ConvertLienfeedFilter::STR_LF,
-        ConvertLienfeedFilter::STR_CRLF => ConvertLienfeedFilter::STR_CRLF,
-        ConvertLienfeedFilter::STR_ALL  => ConvertLienfeedFilter::STR_ALL,
+        ConvertLinefeedFilter::STR_CR   => ConvertLinefeedFilter::STR_CR,
+        ConvertLinefeedFilter::STR_LF   => ConvertLinefeedFilter::STR_LF,
+        ConvertLinefeedFilter::STR_CRLF => ConvertLinefeedFilter::STR_CRLF,
+        ConvertLinefeedFilter::STR_ALL  => ConvertLinefeedFilter::STR_ALL,
     );
 
     //==============================================

@@ -18,7 +18,7 @@
 
 namespace fw3_for_old\tests\cases\filters;
 
-use fw3_for_old\streams\filters\ConvertLienfeedFilter;
+use fw3_for_old\streams\filters\ConvertLinefeedFilter;
 use fw3_for_old\streams\filters\utilitys\StreamFilterSpec;
 use fw3_for_old\streams\filters\utilitys\specs\StreamFilterConvertEncodingSpec;
 use fw3_for_old\streams\filters\utilitys\specs\StreamFilterConvertLinefeedSpec;
@@ -27,7 +27,7 @@ use fw3_for_old\tests\streams\tester\AbstractTest;
 /**
  * 行末の改行コードを変換するストリームフィルタクラスのテスト
  */
-class ConvertLienfeedFilterTest extends AbstractTest
+class ConvertLinefeedFilterTest extends AbstractTest
 {
     /**
      * @var string  テストデータ：空文字
@@ -329,7 +329,7 @@ class ConvertLienfeedFilterTest extends AbstractTest
      */
     public function testI01()
     {
-        $actual     = implode(ConvertLienfeedFilter::LF, array(
+        $actual     = implode(ConvertLinefeedFilter::LF, array(
             '1111,1111',
             '2222,2222',
             '3333,3333',
