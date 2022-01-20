@@ -75,6 +75,12 @@ abstract class StreamFilterConvertEncodingSpec
     const ENCODING_NAME_SJIS_WIN     = StreamFilterConvertEncodingSpecEntity::ENCODING_NAME_SJIS_WIN;
 
     /**
+     * @var string  日本語処理系で多用するエンコーディング：CP932（Shift_JIS（Windows-31J））
+     *              PHP8.1での誤った修正によりPHP8.1時点ではSJIS-winではなくCP932を利用する必要がある。
+     */
+    const ENCODING_NAME_CP932   = StreamFilterConvertEncodingSpecEntity::ENCODING_NAME_CP932;
+
+    /**
      * @var string  日本語処理系で多用するエンコーディング：EUC-JP（Windows-31JのEUC-JP互換表現）
      */
     const ENCODING_NAME_EUCJP_WIN    = StreamFilterConvertEncodingSpecEntity::ENCODING_NAME_EUCJP_WIN;

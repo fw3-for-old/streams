@@ -77,6 +77,12 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     const ENCODING_NAME_SJIS_WIN     = ConvertEncodingFilter::ENCODING_NAME_SJIS_WIN;
 
     /**
+     * @var string  日本語処理系で多用するエンコーディング：CP932（Shift_JIS（Windows-31J））
+     *              PHP8.1での誤った修正によりPHP8.1時点ではSJIS-winではなくCP932を利用する必要がある。
+     */
+    const ENCODING_NAME_CP932   = ConvertEncodingFilter::ENCODING_NAME_CP932;
+
+    /**
      * @var string  日本語処理系で多用するエンコーディング：EUC-JP（Windows-31JのEUC-JP互換表現）
      */
     const ENCODING_NAME_EUCJP_WIN    = ConvertEncodingFilter::ENCODING_NAME_EUCJP_WIN;
@@ -142,6 +148,10 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     /**
      * 変換後の文字エンコーディングを取得・設定します。
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @param   null|string $to_encoding    変換後の文字エンコーディング
      * @return  string|\fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity  変換後の文字エンコーディングまたはこのインスタンス
      */
@@ -149,6 +159,12 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     {
         if (\func_num_args() === 0) {
             return $this->toEncoding;
+        }
+
+        if (\version_compare(PHP_VERSION, '8.1')) {
+            if ($to_encoding === static::ENCODING_NAME_SJIS_WIN) {
+                $to_encoding    = static::ENCODING_NAME_CP932;
+            }
         }
 
         if (!\in_array($to_encoding, \mb_list_encodings(), true)) {
@@ -172,11 +188,25 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     /**
      * 変換後の文字エンコーディングをSJIS-winとして設定したスペックエンティティを返します。
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity    変換後の文字エンコーディングをSJIS-winとして設定したスペックエンティティ
      */
     public function toSjisWin()
     {
         return $this->to(static::ENCODING_NAME_SJIS_WIN);
+    }
+
+    /**
+     * 変換後の文字エンコーディングをCP932として設定したスペックエンティティを返します。
+     *
+     * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity    変換後の文字エンコーディングをCP932として設定したスペックエンティティ
+     */
+    public function toCp932()
+    {
+        return $this->to(static::ENCODING_NAME_CP932);
     }
 
     /**
@@ -192,6 +222,10 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     /**
      * 変換前の文字エンコーディングを取得・設定します。
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @param   null|string $from_encoding  変換前の文字エンコーディング
      * @return  string|\fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity     変換前の文字エンコーディングまたはこのインスタンス
      */
@@ -199,6 +233,12 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     {
         if (\func_num_args() === 0) {
             return $this->fromEncoding;
+        }
+
+        if (\version_compare(PHP_VERSION, '8.1')) {
+            if ($from_encoding === static::ENCODING_NAME_SJIS_WIN) {
+                $from_encoding  = static::ENCODING_NAME_CP932;
+            }
         }
 
         if (!\in_array($from_encoding, static::$DETECT_FROM_ENCODING_MAP, true) && !\in_array($from_encoding, \mb_list_encodings(), true)) {
@@ -221,6 +261,10 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
 
     /**
      * 変換前の文字エンコーディングをSJIS-winとして設定したスペックエンティティを返します。
+     *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
      *
      * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity 変換前の文字エンコーディングをSJIS-winとして設定したスペックエンティティ
      */
