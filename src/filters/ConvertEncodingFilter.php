@@ -80,6 +80,12 @@ class ConvertEncodingFilter extends \php_user_filter
     const ENCODING_NAME_SJIS_WIN     = 'SJIS-win';
 
     /**
+     * @var string  日本語処理系で多用するエンコーディング：CP932（Shift_JIS（Windows-31J））
+     *              PHP8.1での誤った修正によりPHP8.1時点ではSJIS-winではなくCP932を利用する必要がある。
+     */
+    const ENCODING_NAME_CP932   = 'CP932';
+
+    /**
      * @var string  日本語処理系で多用するエンコーディング：EUC-JP（Windows-31JのEUC-JP互換表現）
      */
     const ENCODING_NAME_EUCJP_WIN    = 'eucJP-win';
@@ -111,6 +117,13 @@ class ConvertEncodingFilter extends \php_user_filter
         'ISO-2022-JP',
         'UTF-8',
         'ASCII',
+    );
+
+    /**
+     * @var array   PHP 8.1での考えなしの修正により発生した不具合対応用マップ
+     */
+    public static $REPLACEMENT_SJIS_WIN_MAP_FOR_BUGS_IN_PHP_8_1 = array(
+        'SJIS-win'  => 'CP932',
     );
 
     /**
@@ -492,6 +505,10 @@ class ConvertEncodingFilter extends \php_user_filter
     /**
      * デフォルト時の変換元エンコーディングの自動検出順を変更・取得します。
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @param   array   $detect_order   デフォルト時の変換元エンコーディングの自動検出順
      * @return  array   変更前のデフォルト時の変換元エンコーディングの自動検出順
      */
@@ -506,9 +523,22 @@ class ConvertEncodingFilter extends \php_user_filter
         }
 
         $default_detect_encoding_list   = static::getDefaultDetectEncodingListCache();
-        foreach ((array) $detect_order as $detect_encoding) {
-            if (!isset($default_detect_encoding_list[$detect_encoding])) {
-                throw new \Exception(\sprintf('システムで使用できないエンコーディングを指定されました。encoding:%s', $detect_encoding));
+
+        if (\version_compare(PHP_VERSION, '8.1')) {
+            foreach ((array) $detect_order as $detect_encoding) {
+                if ($detect_encoding === static::ENCODING_NAME_SJIS_WIN) {
+                    $detect_encoding    = static::ENCODING_NAME_CP932;
+                }
+
+                if (!isset($default_detect_encoding_list[$detect_encoding])) {
+                    throw new \Exception(\sprintf('システムで使用できないエンコーディングを指定されました。encoding:%s', $detect_encoding));
+                }
+            }
+        } else {
+            foreach ((array) $detect_order as $detect_encoding) {
+                if (!isset($default_detect_encoding_list[$detect_encoding])) {
+                    throw new \Exception(\sprintf('システムで使用できないエンコーディングを指定されました。encoding:%s', $detect_encoding));
+                }
             }
         }
 
@@ -523,9 +553,14 @@ class ConvertEncodingFilter extends \php_user_filter
     /**
      * インスタンス生成時の処理
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @return  bool    instance生成に成功した場合はtrue、そうでなければfalse (falseを返した場合、フィルタの登録が失敗したものと見なされる)
      * @see \php_user_filter::onCreate()
      */
+    #[\ReturnTypeWillChange]
     public function onCreate()
     {
         //==============================================
@@ -566,6 +601,18 @@ class ConvertEncodingFilter extends \php_user_filter
             // to encoding, from encodingが共にある場合
             $to_encoding    = \substr($filter_option_part, 0, $parameter_separate_position);
             $from_encoding  = \substr($filter_option_part, $parameter_separate_position + 1);
+        }
+
+        if (\version_compare(PHP_VERSION, '8.1')) {
+            $to_encoding    = \substr($filter_option_part, 0, $parameter_separate_position);
+            if ($to_encoding === static::ENCODING_NAME_SJIS_WIN) {
+                $to_encoding    = static::ENCODING_NAME_CP932;
+            }
+
+            $from_encoding  = \substr($filter_option_part, $parameter_separate_position + 1);
+            if ($from_encoding === static::ENCODING_NAME_SJIS_WIN) {
+                $from_encoding  = static::ENCODING_NAME_CP932;
+            }
         }
 
         //----------------------------------------------
@@ -619,6 +666,7 @@ class ConvertEncodingFilter extends \php_user_filter
      *     \PSFS_ERR_FATAL (デフォルト)  ：フィルタで対処不能なエラーが発生し、処理を続行できない
      * @see \php_user_filter::filter()
      */
+    #[\ReturnTypeWillChange]
     public function filter($in, $out, &$consumed, $closing)
     {
         //==============================================
