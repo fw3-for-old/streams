@@ -120,13 +120,6 @@ class ConvertEncodingFilter extends \php_user_filter
     );
 
     /**
-     * @var array   PHP 8.1での考えなしの修正により発生した不具合対応用マップ
-     */
-    public static $REPLACEMENT_SJIS_WIN_MAP_FOR_BUGS_IN_PHP_8_1 = array(
-        'SJIS-win'  => 'CP932',
-    );
-
-    /**
      * @var array   変換元文字列に対してエンコーディング検出を行う変換元エンコーディングマップ
      */
     public static $DETECT_FROM_ENCODING_MAP   = array(
