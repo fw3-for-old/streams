@@ -204,7 +204,7 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
      *
      * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity    変換後の文字エンコーディングをCP932として設定したスペックエンティティ
      */
-    public function toCp932()
+    public function toCP932()
     {
         return $this->to(static::ENCODING_NAME_CP932);
     }
@@ -271,6 +271,16 @@ class StreamFilterConvertEncodingSpecEntity implements StreamFilterSpecInterface
     public function fromSjisWin()
     {
         return $this->from(static::ENCODING_NAME_SJIS_WIN);
+    }
+
+    /**
+     * 変換前の文字エンコーディングをCP932として設定したスペックエンティティを返します。
+     *
+     * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity 変換前の文字エンコーディングをCP932として設定したスペックエンティティ
+     */
+    public function fromCP932()
+    {
+        return $this->from(static::ENCODING_NAME_CP932);
     }
 
     /**

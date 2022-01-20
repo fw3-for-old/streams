@@ -187,11 +187,25 @@ abstract class StreamFilterConvertEncodingSpec
     /**
      * 変換後の文字エンコーディングをSJIS-winとして設定したスペックエンティティを返します。
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity 変換後の文字エンコーディングをSJIS-winとして設定したスペックエンティティ
      */
     public static function toSjisWin()
     {
         return static::factory()->toSjisWin();
+    }
+
+    /**
+     * 変換後の文字エンコーディングをCP932として設定したスペックエンティティを返します。
+     *
+     * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity 変換後の文字エンコーディングをCP932として設定したスペックエンティティ
+     */
+    public static function toCP932()
+    {
+        return static::factory()->toCP932();
     }
 
     /**
@@ -228,11 +242,25 @@ abstract class StreamFilterConvertEncodingSpec
     /**
      * 変換前の文字エンコーディングをSJIS-winとして設定したスペックエンティティを返します。
      *
+     * ！！注意！！
+     * PHP8.1での誤った修正により`SJIS-win`は削除されました。
+     * 過去実装でも極力そのまま動作させるために、内部的にはCP932を設定したものとみなし、処理を続行させます。
+     *
      * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity 変換前の文字エンコーディングをSJIS-winとして設定したスペックエンティティ
      */
     public static function fromSjisWin()
     {
         return static::factory()->fromSjisWin();
+    }
+
+    /**
+     * 変換前の文字エンコーディングをCP932として設定したスペックエンティティを返します。
+     *
+     * @return  \fw3_for_old\streams\filters\utilitys\specs\entitys\StreamFilterConvertEncodingSpecEntity 変換前の文字エンコーディングをCP932として設定したスペックエンティティ
+     */
+    public static function fromCP932()
+    {
+        return static::factory()->fromCP932();
     }
 
     /**

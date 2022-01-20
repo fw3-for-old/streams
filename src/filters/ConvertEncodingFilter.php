@@ -597,12 +597,10 @@ class ConvertEncodingFilter extends \php_user_filter
         }
 
         if (\version_compare(PHP_VERSION, '8.1')) {
-            $to_encoding    = \substr($filter_option_part, 0, $parameter_separate_position);
             if ($to_encoding === static::ENCODING_NAME_SJIS_WIN) {
                 $to_encoding    = static::ENCODING_NAME_CP932;
             }
 
-            $from_encoding  = \substr($filter_option_part, $parameter_separate_position + 1);
             if ($from_encoding === static::ENCODING_NAME_SJIS_WIN) {
                 $from_encoding  = static::ENCODING_NAME_CP932;
             }
