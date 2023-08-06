@@ -182,7 +182,7 @@ class StreamFilterSpecEntity
     public function resource($resource = null)
     {
         if (func_num_args() === 0) {
-            return $resource;
+            return $this->resource;
         }
         $this->resource = $resource;
         return $this;
@@ -267,7 +267,7 @@ class StreamFilterSpecEntity
     public function write($write = null)
     {
         if (func_num_args() === 0) {
-            return $write;
+            return $this->write;
         }
         $this->write    = array();
         foreach ($write as $filter) {
@@ -289,7 +289,7 @@ class StreamFilterSpecEntity
     public function read($read = null)
     {
         if (func_num_args() === 0) {
-            return $read;
+            return $this->read;
         }
         $this->read = array();
         foreach ($read as $filter) {
@@ -311,7 +311,7 @@ class StreamFilterSpecEntity
     public function both($both = null)
     {
         if (func_num_args() === 0) {
-            return $both;
+            return $this->both;
         }
         $this->both = array();
         foreach ($both as $filter) {
